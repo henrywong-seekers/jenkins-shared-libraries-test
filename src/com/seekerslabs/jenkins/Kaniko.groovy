@@ -1,15 +1,19 @@
 package com.seekerslabs.jenkins
 
 class Kaniko {
+  static String KANIKO_IMAGE
+  static String AWSCLI_IMAGE
+  static String CREDENTIALS_IMAGE
+
   static void kanikoTemplateGenesis(body) {
-    string podYaml = """
+    String podYaml = """
 apiVersion: v1
 kind: Pod
 spec:
   serviceAccountName: ecr
   containers:
   - name: kaniko
-    image: ${env.KANIKO_IMAGE}
+    image: $KANIKO_IMAGE
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -19,7 +23,7 @@ spec:
       mountPath: /root/.aws
   initContainers:
   - name: awscli
-    image: ${env.AWSCLI_IMAGE}
+    image: $AWSCLI_IMAGE
     command: ["/bin/sh"]
     args:
     - -c
@@ -46,14 +50,14 @@ spec:
   }
 
   static void kanikoTemplate(body) {
-    string podYaml = """
+    String podYaml = """
 apiVersion: v1
 kind: Pod
 spec:
   serviceAccountName: ecr
   containers:
   - name: kaniko
-    image: ${env.KANIKO_IMAGE}
+    image: $KANIKO_IMAGE
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -63,7 +67,7 @@ spec:
       mountPath: /root/.aws
   initContainers:
   - name: credentials
-    image: ${env.CREDENTIALS_IMAGE}
+    image: $CREDENTIALS_IMAGE
     volumeMounts:
     - name: awsdir
       mountPath: /work-dir
