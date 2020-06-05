@@ -1,7 +1,8 @@
 package com.seekerslabs.jenkins
 
 class Kaniko {
-  private static string podYamlGenesis = """
+  static void kanikoTemplateGenesis(body) {
+    string podYamlGenesis = """
 apiVersion: v1
 kind: Pod
 spec:
@@ -39,13 +40,13 @@ spec:
       name: docker-config
 """
 
- static void kanikoTemplateGenesis(body) {
     podTemplate(yaml: podYamlGenesis) {
       body.call()
     }
   }
 
-  private string podYaml = """
+  static void kanikoTemplate(body) {
+    string podYaml = """
 apiVersion: v1
 kind: Pod
 spec:
@@ -74,7 +75,6 @@ spec:
       name: docker-config
 """
 
-  static void kanikoTemplate(body) {
     podTemplate(yaml: podYaml) {
       body.call()
     }
