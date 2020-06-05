@@ -5,7 +5,7 @@ class Kaniko {
   static String AWSCLI_IMAGE
   static String CREDENTIALS_IMAGE
 
-  static void kanikoTemplateGenesis(body) {
+  static void kanikoTemplateGenesis(script, body) {
     String podYaml = """
 apiVersion: v1
 kind: Pod
@@ -44,12 +44,12 @@ spec:
       name: docker-config
 """
 
-    podTemplate(yaml: podYaml) {
+    script.podTemplate(yaml: podYaml) {
       body.call()
     }
   }
 
-  static void kanikoTemplate(body) {
+  static void kanikoTemplate(script, body) {
     String podYaml = """
 apiVersion: v1
 kind: Pod
@@ -79,7 +79,7 @@ spec:
       name: docker-config
 """
 
-    podTemplate(yaml: podYaml) {
+    script.podTemplate(yaml: podYaml) {
       body.call()
     }
   }
